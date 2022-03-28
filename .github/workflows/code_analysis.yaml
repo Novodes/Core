@@ -1,9 +1,9 @@
 name: Code quality control
 
 on:
-  workflow_dispatch:
   workflow_run:
-    workflows: [Build & Test, build, Ubuntu Latest GCC]
+    workflows: 
+      - '**'
     types: [completed]
     branches:
       - '**'
@@ -23,7 +23,7 @@ jobs:
           echo "#!/bin/bash
           make -B install" > init_script.sh
       - name: Run static analysis
-        uses: JacobDomagala/StaticAnalysis@master
+        uses: Alex-Tsvetanov/StaticAnalysis@master
         with:
           # Exclude any issues found in ${Project_root_dir}/lib
           exclude_dir: lib
